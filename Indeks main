@@ -1,0 +1,64 @@
+#include"Klasa1.h"
+#include<fstream>
+#include<iostream>
+#include<vector>
+using namespace std;
+
+struct Osoba{
+	string ime, prezime, brIndex;
+	int poeni;
+} student[50];
+
+int main() {
+	index s[50];
+	ofstream fajl;
+	fajl.open("rezultati.txt");
+
+	int n, i;
+	cout << "Unesite koliko stuenata polaze ispit: ";
+	cin >> n;
+
+	//unos osnovnih podataka
+	for (i = 0; i < n; i++) {
+		
+		cout << "Unesite ime studenta:> ";
+		cin >> student[i].ime;
+		cout << "\nUnesite njegovo prezime:>";
+		cin >> student[i].prezime;
+		cout << "\nUnesite i njegov broj index-a:>";
+		cin >> student[i].brIndex;
+		cout << "\n";
+		s[i](student[i].prezime, student[i].ime, student[i].brIndex);
+
+	}
+
+	//unos poena 
+	for (i = 0; i < n; i++) {
+		cout << "Unesite bodove za " << student[i].ime << " " << student[i].prezime << " :>";
+		cin >> student[i].poeni;
+		cout << "\n";
+	}
+
+	cout << "Trenutni ispis: \n\n\n";
+	//trenutni ispis:
+	for (i = 0; i < n; i++) {
+		s[i].ToString();
+	}
+
+	//azuriranje
+	for (i = 0; i < n; i++) {
+		s[i].Azuriraj(student[i].poeni);
+	}
+
+	//ubacivanje podataka u datoteku
+	fajl << "Polozili:>";
+	fajl << "Broj indexa \t Ime \t Prezime \t ukupno poena \t konacna ocena";
+	fajl << "\n";
+	for (i = 0; i < n; i++) {
+		fajl << s[i].Ispis();
+	}
+
+	fajl.close();
+	system("pause");
+	return 0;
+}
