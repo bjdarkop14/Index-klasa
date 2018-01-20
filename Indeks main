@@ -10,14 +10,13 @@ struct Osoba{
 } student[50];
 
 int main() {
-	index s[50];
+	index niz[50];
 	ofstream fajl;
 	fajl.open("rezultati.txt");
 
 	int n, i;
 	cout << "Unesite koliko stuenata polaze ispit: ";
 	cin >> n;
-
 	//unos osnovnih podataka
 	for (i = 0; i < n; i++) {
 		
@@ -28,8 +27,8 @@ int main() {
 		cout << "\nUnesite i njegov broj index-a:>";
 		cin >> student[i].brIndex;
 		cout << "\n";
-		s[i](student[i].prezime, student[i].ime, student[i].brIndex);
-
+		index p(student[i].prezime, student[i].ime, student[i].brIndex);
+		niz[i] = p;
 	}
 
 	//unos poena 
@@ -42,20 +41,20 @@ int main() {
 	cout << "Trenutni ispis: \n\n\n";
 	//trenutni ispis:
 	for (i = 0; i < n; i++) {
-		s[i].ToString();
+		cout<<niz[i].ToString();
 	}
 
 	//azuriranje
 	for (i = 0; i < n; i++) {
-		s[i].Azuriraj(student[i].poeni);
+		niz[i].Azuriraj(student[i].poeni);
 	}
 
 	//ubacivanje podataka u datoteku
-	fajl << "Polozili:>";
+	fajl << "Polozili:>\n";
 	fajl << "Broj indexa \t Ime \t Prezime \t ukupno poena \t konacna ocena";
 	fajl << "\n";
 	for (i = 0; i < n; i++) {
-		fajl << s[i].Ispis();
+		fajl << niz[i].Ispis();
 	}
 
 	fajl.close();
