@@ -1,0 +1,83 @@
+#include<string>
+#include<iostream>
+#include<iomanip>
+#include<cctype>
+#include<cmath>
+using namespace std;
+
+class index {
+private:
+	string prezime, Ime, br_indexa;
+	int konacna_ocena, br_poena;
+public:
+	index(string prez,string ime,string br_ind);
+	index();
+	~index();
+	string ToString();
+	bool Polozili();
+	void Azuriraj(int poeni);
+	void Pismeni(int poeni=0);
+	void Usmeni();
+	string Ispis();
+};
+index::index() {
+	prezime = " ";
+	Ime = " ";
+	br_indexa = " ";
+	konacna_ocena = 0;
+	br_poena = 0;
+}
+index::index (string prez, string ime, string br_ind) {
+	if(ime.length()<=50)
+		Ime = ime;
+	if(prez.length()<=50)
+		prezime = prez;
+	if(br_ind.length()<=50)
+		br_indexa = br_ind;
+}
+void index::Pismeni(int poeni) {
+	br_poena = poeni;
+	if (br_poena > 50) {
+		konacna_ocena = ceil(br_poena / 10);
+	}
+}
+
+
+void index::Usmeni() {
+	if (konacna_ocena > 5) {
+		konacna_ocena = konacna_ocena + rand() % (+2 + 1 - (-2)) + (-2);
+	}
+	if (konacna_ocena > 10) {
+		konacna_ocena = 10;
+	}
+}
+
+bool index::Polozili() {
+	if (konacna_ocena > 5)
+		return true;
+	else
+		return false;
+}
+
+string index::ToString() {
+	string s1 = "Ime> " + Ime + "\n" + "Prezime> " + prezime + "\n" + "Broj indexa> " + br_indexa;
+	if (br_poena != 0)
+		s1 = s1 + "\nBroj poena> " + (char)(br_poena)+"\n";
+	if (konacna_ocena != 0)
+		s1= s1 + "\n" + "Konacna ocena> " + (char)(konacna_ocena);
+	return s1;
+}
+
+void index::Azuriraj(int poeni) {
+	Pismeni(poeni);
+	if(Polozili()==true)
+		Usmeni();
+	ToString();
+}
+ index::~index() {
+}
+
+ string index::Ispis() {
+	 string s = "";
+	 s = br_indexa + '\t' + Ime + '\t' + prezime + '\t' + (char)(br_poena) + '\t' + (char)(konacna_ocena);
+ }
