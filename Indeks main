@@ -1,7 +1,7 @@
 #include"Klasa1.h"
 #include<fstream>
 #include<iostream>
-#include<vector>
+#include<string>
 using namespace std;
 
 struct Osoba{
@@ -18,7 +18,7 @@ int main() {
 	fajl.open("rezultati.txt");
 	save.open("sacuvano.txt");
 	int n, i;
-	cout << "Unesite koliko stuenata polaze ispit: ";
+	cout << "Unesite koliko studenata polaze ispit: ";
 	cin >> n;
 	//unos osnovnih podataka
 	save << "Svi studenti:> \n";
@@ -31,6 +31,14 @@ int main() {
 		cout << "\nUnesite i njegov broj index-a:>";
 		cin >> student[i].brIndex;
 		cout << "\n";
+		for (int j =0; j < i; j++) {
+			if (student[j].brIndex.compare(student[i].brIndex)==0) {
+				cout << "Vec postoji takav index - Molimo Vas unesite novi: ";
+				cin >> student[i].brIndex;
+			}
+			else
+				continue;
+		}
 		//ubacivanje u konstruktor
 		index p(student[i].prezime, student[i].ime, student[i].brIndex);
 		niz[i] = p;
