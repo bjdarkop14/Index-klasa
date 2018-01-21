@@ -12,13 +12,11 @@ private:
 public:
 	index(string prez,string ime,string br_ind);
 	index();
-	~index();
 	string ToString();
 	bool Polozili();
 	void Azuriraj(int poeni);
 	void Pismeni(int poeni=0);
 	void Usmeni();
-	string Ispis();
 };
 index::index() {
 	prezime = " ";
@@ -37,16 +35,14 @@ index::index (string prez, string ime, string br_ind) {
 }
 void index::Pismeni(int poeni) {
 	br_poena = poeni;
-	if (br_poena > 50) {
-		konacna_ocena = ceil(br_poena / 10);
-	}
+	konacna_ocena = ceil(br_poena / 10);
+	
 }
 
 
 void index::Usmeni() {
-	if (konacna_ocena > 5) {
-		konacna_ocena = konacna_ocena + rand() % (+2 + 1 - (-2)) + (-2);
-	}
+	konacna_ocena = konacna_ocena + rand() % (+2 + 1 - (-2)) + (-2);
+	
 	if (konacna_ocena > 10) {
 		konacna_ocena = 10;
 	}
@@ -60,24 +56,45 @@ bool index::Polozili() {
 }
 
 string index::ToString() {
-	string s1 = "Ime> " + Ime + "\n" + "Prezime> " + prezime + "\n" + "Broj indexa> " + br_indexa;
-	if (br_poena != 0)
-		s1 = s1 + "\nBroj poena> " + (char)(br_poena)+"\n";
-	if (konacna_ocena != 0)
-		s1= s1 + "\n" + "Konacna ocena> " + (char)(konacna_ocena);
-	return s1;
+	string s = "";
+	string pom1 = " ";
+	string pom2 = " ";
+	string pom3 = " ";
+	string pom4 = " ";
+	string pom5 = " ";
+	int k1 = 0,k2=0,k3=0,k4=0,k5=0;
+	k1 = 11 - br_indexa.length();
+	while (k1 > 1) {
+		pom1 += " ";
+		k1--;
+	}
+	k2 = 15 - Ime.length();
+	while (k2 > 1) {
+		pom2 += " ";
+		k2--;
+	}
+	k3 = 20 - prezime.length();
+	while (k3 > 1) {
+		pom3 += " ";
+		k3--;
+	}
+	k4 = 10;
+	while (k4 > 1) {
+		pom4 += " ";
+		k4--;
+	}
+	k5 = 16;
+	while (k5 > 1) {
+		pom5 += " ";
+		k5--;
+	}
+	s = pom1 + br_indexa + pom2 + Ime + pom3 + prezime + pom4 + to_string(br_poena) + pom5 + to_string(konacna_ocena) ;
+	return s;
 }
 
 void index::Azuriraj(int poeni) {
 	Pismeni(poeni);
 	if(Polozili()==true)
 		Usmeni();
-	ToString();
-}
- index::~index() {
-}
 
- string index::Ispis() {
-	 string s = "";
-	 s = br_indexa + '\t' + Ime + '\t' + prezime + '\t' + (char)(br_poena) + '\t' + (char)(konacna_ocena);
- }
+}
