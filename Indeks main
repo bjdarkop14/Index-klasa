@@ -12,23 +12,32 @@ struct Osoba{
 int main() {
 	index niz[50];
 	ofstream fajl;
+	ofstream save;
+	ofstream bodovi;
+	bodovi.open("bodovi.txt");
 	fajl.open("rezultati.txt");
-
+	save.open("sacuvano.txt");
 	int n, i;
 	cout << "Unesite koliko stuenata polaze ispit: ";
 	cin >> n;
 	//unos osnovnih podataka
+	save << "Svi studenti:> \n";
 	for (i = 0; i < n; i++) {
-		
-		cout << "Unesite ime studenta:> ";
+		string s = "";
+		cout << "Unesite ime "<<i +1<<". studenta:> ";
 		cin >> student[i].ime;
 		cout << "\nUnesite njegovo prezime:>";
 		cin >> student[i].prezime;
 		cout << "\nUnesite i njegov broj index-a:>";
 		cin >> student[i].brIndex;
 		cout << "\n";
+		//ubacivanje u konstruktor
 		index p(student[i].prezime, student[i].ime, student[i].brIndex);
 		niz[i] = p;
+		
+		//ubacivanje u fajl sacuvano.txt
+		s= student[i].ime + " " + student[i].prezime + " " + student[i].brIndex + "\n";
+		save << s; 
 	}
 
 	//unos poena 
@@ -36,28 +45,33 @@ int main() {
 		cout << "Unesite bodove za " << student[i].ime << " " << student[i].prezime << " :>";
 		cin >> student[i].poeni;
 		cout << "\n";
-	}
-
-	cout << "Trenutni ispis: \n\n\n";
-	//trenutni ispis:
-	for (i = 0; i < n; i++) {
-		cout<<niz[i].ToString();
+		bodovi << student[i].ime + " " + student[i].prezime + " " + student[i].brIndex +" " + to_string(student[i].poeni) + "\n";
 	}
 
 	//azuriranje
 	for (i = 0; i < n; i++) {
 		niz[i].Azuriraj(student[i].poeni);
 	}
-
 	//ubacivanje podataka u datoteku
-	fajl << "Polozili:>\n";
-	fajl << "Broj indexa \t Ime \t Prezime \t ukupno poena \t konacna ocena";
-	fajl << "\n";
-	for (i = 0; i < n; i++) {
-		fajl << niz[i].Ispis();
+	{
+		fajl << "Polozili:>\n";
+		fajl << setw(11) << "Broj indexa" << setw(15) << "Ime " << setw(20) << "Prezime" << setw(15) << "ukupno poena" << setw(20) << "konacna ocena";
+		fajl << "\n";
+		for (i = 0; i < n; i++) {
+			if (niz[i].Polozili() == false)
+				continue;
+			else
+			{
+				fajl << niz[i].ToString();
+				fajl << "\n";
+			}
+		}
 	}
 
+	cout << "Uspesno su uneti i obradjeni svi podaci" << endl;
 	fajl.close();
+	save.close();
+	bodovi.close();
 	system("pause");
 	return 0;
 }
